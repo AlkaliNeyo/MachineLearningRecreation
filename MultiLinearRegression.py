@@ -11,17 +11,20 @@ class MultiLinearRegression:
         self.n_iter = n_iter
         self.m = None
         self.b = b
+
+        #Used for Robust Scaling
         self.X_median = None
         self.X_IQR = None
 
     def fit(self, X, y):
         n_samples, n_features = X.shape
+
         #print(n_features)
         self.m = np.zeros(n_features) #make array for weight, equal to the amount of features. 
         X = np.array(X)
         y = np.array(y)
 
-
+        #Feature Scaling 
         self.X_median = np.median(X.T, axis=1) # find the medium for each feature 
         X_q1, X_q3 = np.quantile(X.T, [0.25, 0.75], axis=1)
         self.X_IQR = X_q3 - X_q1
