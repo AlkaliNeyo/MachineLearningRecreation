@@ -1,0 +1,33 @@
+Linear Regression Check List:
+
+Zero IQR Guard: have safeguard in case IQR becomes 0/0 
+
+Input Validation: Check if X is 2D array, and if it matches with y, and there isn't any NaNs
+
+Lost history: Store the MSE of each iteration in arribute, find out why i should do this
+
+Convergence: Stop when loss improve drops below some tolerance (find out why and how)
+
+Learning Rate Schedule: Decay the learning rate over time, which helps with over shooting minimum
+
+Optimizer variant: Change Gradient Descent to Stochastic gradient descent, mini-batch gradient descent, and momentum or Adam. (learn why and look into mini batch)
+
+Regularization: Ridge (L2) and Lasso (L1) penalties. Ridge adds a term to the gradient; Lasso needs subgradients, so it's a good conceptual stretch.
+
+Separate RobustScaler: to its own class with fit/transform. This way its reuseable 
+
+Closed-form solution. The Normal Equation (or via np.linalg.lstsq) gives the exact answer with no learning rate. Implementing it alongside gradient descent lets you check your GD result against ground truth.
+
+Other methods to implement:
+
+1. Score(X, y), return R^2
+
+2. get_params/setparams
+
+3. Trailing underscore attributes like coef_ and intercept_ for learned values, so they're distinguishable from hyperparameters. Expose weights in the original feature scale too, not only the scaled one (the unscaling math is a good exercise).
+
+4. A "not fitted" check in predict and evaluate, raising a clear error instead of a cryptic NoneType failure.
+
+5.Other metrics: RMSE, MAE.
+
+6. Save/load of the learned parameters, including the scaler's median and IQR.

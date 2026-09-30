@@ -45,9 +45,9 @@ class MultiLinearRegression:
             self.m -= self.lr * dm
             self.b -= self.lr * db
 
-            #if i % 100 == 0:
+            if i % 100 == 0:
                 #mse = np.mean(error**2) #mean of error ^2
-                #print(f"iter {i}: m={self.m}, b={self.b:.4f}")
+                print(f"iter {i}: m={self.m}, b={self.b:.4f}")
 
         #print(f"\nFinal: m={self.m:.4f}, b={self.b:.4f}")
 

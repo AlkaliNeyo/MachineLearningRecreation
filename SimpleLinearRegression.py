@@ -1,12 +1,15 @@
 import numpy as np
 import random
 
+
+# TO DO: Feature Scaling
+# Combine with Multiple Linear Regression Model
 class SimpleLinearRegression:
     # has three methods, fit (train the model with dataset), predict(predict the dept with indept), evaluate(return the MSE) 
 
     #lr = learning_rate
     
-    def __init__(self, lr = 0.01, n_iter = 1000, m = random.uniform(-1,1), b = random.uniform(-1,1)):
+    def __init__(self, lr = 0.01, n_iter = 3200, m = random.uniform(-1,1), b = random.uniform(-1,1)):
         self.lr = lr
         self.n_iter = n_iter
         self.m = m
