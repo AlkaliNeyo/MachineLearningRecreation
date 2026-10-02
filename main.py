@@ -9,10 +9,10 @@ import os
 def main():
    
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    csv_path = os.path.join(script_dir, 'DataSets', 'Salary_dataset_slr.csv') #multiple_linear_regression_dataset_mlr.csv
-    df = pd.read_csv(csv_path, index_col=0)
+    csv_path = os.path.join(script_dir, 'DataSets', 'multiple_linear_regression_dataset_mlr.csv') #multiple_linear_regression_dataset_mlr.csv
+    df = pd.read_csv(csv_path)
     #Split the dataset into target and independent variables 
-    tar = "Salary"
+    tar = "income"
 
     X = df.drop(columns=[tar]).to_numpy()
     y = df[tar].to_numpy() 
@@ -22,8 +22,10 @@ def main():
     model = MultiLinearRegression()
 
     model.fit(X, y)
-
-    new_x = np.array(4.0)
+    #print("trained on features:", model.w.shape)      # (1,) means fit saw one feature
+   
+    new_x = np.array([[37,10], [37, 11], [17,8]])
+    #print("new_x shape:", np.asarray(new_x).shape)  
     print("New predictions: for {}: ".format(new_x), model.predict(new_x))
 
 

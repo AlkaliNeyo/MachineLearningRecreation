@@ -11,6 +11,7 @@ class MultiLinearRegression:
         self.n_iter = n_iter
         self.w = None
         self.b = b
+        self.scaler = RobustScaler()
 
     def fit(self, X, y):
         n_samples, n_features = X.shape
@@ -21,25 +22,23 @@ class MultiLinearRegression:
         y = np.array(y)
 
         #Feature Scaling 
-    
-        X_scaled = RobustScaler.scale(X)
+        self.scaler.fit(X)
+        X_scaled = self.scaler.transform(X)
 
         for i in range(self.n_iter):
             y_pred = X_scaled @ self.w + self.b # add the two arrays together and than add the b 
             error = y - y_pred #creates array based of the difference between the predicted val and the actual value 
-
-           
             #Calcuate how does we are with MSE 
             #MSE : J(m,b) = 1/n sum(y = (mx+b))^2
             #so for Gradient Descent we need dj(m) and dj(b) (derivative)
-
             dm = (-2/n_samples) * ( X_scaled.T @ error)
             db = (-2/n_samples) * np.sum(error)
 
-            self.m -= self.lr * dm
+            self.w -= self.lr * dm
             self.b -= self.lr * db
 
             if i % 100 == 0:
+                self.lr = self.lr * 0.70
                 #mse = np.mean(error**2) #mean of error ^2
                 print(f"iter {i}: weight={self.w}, b={self.b:.4f}")
 
@@ -48,11 +47,11 @@ class MultiLinearRegression:
         #return(self.m , self.b)
 
     def predict(self, X):
-        X_scaled = RobustScaler.scale(X)
+        X_scaled = self.scaler.transform(X)
         return  X_scaled @ self.w + self.b
     
     def evaluate(self, X, y):
-        X_scaled = RobustScaler.scale(X)
+        X_scaled = self.scaler.transform(X)
         y_pred = X_scaled @ self.w + self.b
         error = y - y_pred
         return np.mean(error**2)
